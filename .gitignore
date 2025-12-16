@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyTorch
+*.pt
+*.pth
+*.ckpt
+
+# Data
+data/raw/*.csv
+data/processed/*.csv
+data/augmented/*.csv
+
+# Checkpoints (keep structure but not the models)
+checkpoints/*.pt
+checkpoints/*.pth
+!checkpoints/.gitkeep
+
+# Tensorboard
+runs/
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Evaluation results
+evaluation_results/
+*.png
+*.jpg
+*.pdf
+
+# Cached data
+*.pkl
+*.pickle
+cache/
+
+# Training outputs
+*.log
+nohup.out
+
+# Keep empty directories
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/augmented/.gitkeep
+!notebooks/.gitkeep
+!checkpoints/.gitkeep
+!runs/.gitkeep
