@@ -911,39 +911,9 @@ The most valuable lessons learned were:
 
 ## 9. References
 
-### Research Papers
-
-1. Hochreiter, S., & Schmidhuber, J. (1997). "Long Short-Term Memory". Neural Computation, 9(8), 1735-1780.
-
-2. Bahdanau, D., Cho, K., & Bengio, Y. (2015). "Neural Machine Translation by Jointly Learning to Align and Translate". ICLR 2015.
-
-3. Vaswani, A., et al. (2017). "Attention Is All You Need". Advances in Neural Information Processing Systems, 30.
-
-4. Devlin, J., et al. (2018). "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding". arXiv preprint arXiv:1810.04805.
-
-5. Kim, Y. (2014). "Convolutional Neural Networks for Sentence Classification". EMNLP 2014.
-
 ### Datasets
 
 6. Sp1786. (2024). "Multiclass Sentiment Analysis Dataset". HuggingFace Datasets. https://huggingface.co/datasets/Sp1786/multiclass-sentiment-analysis-dataset
-
-### Tools & Frameworks
-
-7. Paszke, A., et al. (2019). "PyTorch: An Imperative Style, High-Performance Deep Learning Library". Advances in Neural Information Processing Systems, 32.
-
-8. Lhoest, Q., et al. (2021). "Datasets: A Community Library for Natural Language Processing". EMNLP 2021.
-
-9. Pedregosa, F., et al. (2011). "Scikit-learn: Machine Learning in Python". Journal of Machine Learning Research, 12, 2825-2830.
-
-### Online Resources
-
-10. PyTorch Documentation. https://pytorch.org/docs/
-
-11. HuggingFace Transformers. https://huggingface.co/transformers/
-
-12. Olah, C. "Understanding LSTM Networks". http://colah.github.io/posts/2015-08-Understanding-LSTMs/
-
-13. Alammar, J. "The Illustrated Transformer". http://jalammar.github.io/illustrated-transformer/
 
 ---
 
@@ -1114,14 +1084,3 @@ class BiLSTMAttention(nn.Module):
 - ✅ All dependencies listed in requirements
 - ✅ Project runs end-to-end
 - ✅ Results reproducible (with same dataset)
-
----
-
-**Project Status**: ✅ **COMPLETE**  
-**Grade Recommendation**: A/A+ (Exceeds expectations)  
-**Submission Date**: December 16, 2025  
-**Total Development Time**: 1 day (intensive development session)
-
----
-
-_This report documents a complete, production-ready sentiment analysis system built from scratch using PyTorch and modern deep learning techniques. All code, models, and documentation are included in the project repository._
