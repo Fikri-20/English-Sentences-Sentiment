@@ -1,9 +1,7 @@
 # Sentiment Analysis with Deep Learning
+
 ## Project Report & Documentation
 
-**Course**: [Course Name/Code]  
-**Student**: [Your Name]  
-**Date**: December 16, 2025  
 **Project Type**: Deep Learning for Natural Language Processing
 
 ---
@@ -13,6 +11,7 @@
 This project successfully implements an end-to-end sentiment analysis system using advanced deep learning techniques. The system classifies English text into three sentiment categories (Positive, Negative, Neutral) using a BiLSTM with Attention mechanism, achieving **65.68% validation accuracy** on a real-world dataset of 31,232 samples from HuggingFace.
 
 **Key Achievements:**
+
 - ✅ Fully functional sentiment analysis system
 - ✅ Trained on 31,232 real samples from HuggingFace
 - ✅ BiLSTM + Attention architecture (7.5M parameters)
@@ -29,6 +28,7 @@ This project successfully implements an end-to-end sentiment analysis system usi
 Sentiment analysis is a critical task in Natural Language Processing (NLP) that involves automatically determining the emotional tone of text. With the exponential growth of user-generated content on social media, review platforms, and online forums, there is an increasing need for automated systems that can process and categorize text sentiment at scale.
 
 **Challenges Addressed:**
+
 1. Understanding context and word relationships in text
 2. Handling negations and sarcasm
 3. Dealing with imbalanced sentiment distributions
@@ -50,6 +50,7 @@ Sentiment analysis is a critical task in Natural Language Processing (NLP) that 
 ### 1.3 Scope
 
 **In Scope:**
+
 - English text sentiment analysis
 - Three-class classification (Positive, Negative, Neutral)
 - Deep learning models (LSTM, BiLSTM, GRU variants)
@@ -57,6 +58,7 @@ Sentiment analysis is a critical task in Natural Language Processing (NLP) that 
 - Interactive prediction tool
 
 **Out of Scope:**
+
 - Multilingual support
 - Emotion detection (beyond sentiment)
 - Real-time streaming analysis
@@ -71,6 +73,7 @@ Sentiment analysis is a critical task in Natural Language Processing (NLP) that 
 Sentiment analysis, also known as opinion mining, is the computational study of people's opinions, sentiments, emotions, and attitudes toward entities such as products, services, organizations, individuals, issues, events, topics, and their attributes.
 
 **Applications:**
+
 - Customer feedback analysis
 - Social media monitoring
 - Market research
@@ -84,16 +87,19 @@ Traditional machine learning approaches (Naive Bayes, SVM, Logistic Regression) 
 **Key Technologies:**
 
 1. **Recurrent Neural Networks (RNN)**
+
    - Process sequences of variable length
    - Maintain hidden state across time steps
    - Problems: Vanishing gradients, short-term memory
 
 2. **Long Short-Term Memory (LSTM)**
+
    - Introduced by Hochreiter & Schmidhuber (1997)
    - Solves vanishing gradient problem
    - Gates control information flow (forget, input, output)
 
 3. **Bidirectional LSTM (BiLSTM)**
+
    - Processes text in both directions
    - Captures context from past and future
    - Better understanding of word relationships
@@ -121,13 +127,14 @@ Traditional machine learning approaches (Naive Bayes, SVM, Logistic Regression) 
 
 **Dataset Statistics:**
 
-| Split | Samples | Negative | Neutral | Positive |
-|-------|---------|----------|---------|----------|
-| Train | 31,232  | 9,105 (29.1%) | 11,649 (37.3%) | 10,478 (33.6%) |
-| Test  | 5,206   | 1,546 (29.7%) | 1,930 (37.1%) | 1,730 (33.2%) |
+| Split     | Samples    | Negative           | Neutral            | Positive           |
+| --------- | ---------- | ------------------ | ------------------ | ------------------ |
+| Train     | 31,232     | 9,105 (29.1%)      | 11,649 (37.3%)     | 10,478 (33.6%)     |
+| Test      | 5,206      | 1,546 (29.7%)      | 1,930 (37.1%)      | 1,730 (33.2%)      |
 | **Total** | **36,438** | **10,651 (29.2%)** | **13,579 (37.3%)** | **12,208 (33.5%)** |
 
 **Data Format:**
+
 ```csv
 id,text,label,sentiment
 1,"This product is amazing!",2,"positive"
@@ -136,11 +143,13 @@ id,text,label,sentiment
 ```
 
 **Label Encoding:**
+
 - `0`: Negative
 - `1`: Neutral
 - `2`: Positive
 
 **Data Quality:**
+
 - Balanced distribution across classes (~30-37% each)
 - Real-world user-generated text
 - English language
@@ -174,6 +183,7 @@ The preprocessing pipeline ensures clean, consistent input to the model:
 ```
 
 **Implementation:**
+
 ```python
 from utils.preprocessing import ArabicTextPreprocessor
 
@@ -213,12 +223,14 @@ Combined: [forward_hidden; backward_hidden]
 ```
 
 **Configuration:**
+
 - Hidden Dimension: 256
 - Number of Layers: 2
 - Bidirectional: Yes
 - Total Parameters: ~7.5M
 
 **Why Bidirectional?**
+
 - "not good" vs "very good" - context matters from both sides
 - Better understanding of negations and modifiers
 
@@ -243,6 +255,7 @@ Attention weights:
 ```
 
 **Benefits:**
+
 - Model learns which words matter most
 - Interpretable (can visualize attention)
 - Improves performance on long sequences
@@ -313,19 +326,19 @@ for epoch in range(num_epochs):
         # Forward pass
         outputs = model(batch_text, lengths)
         loss = criterion(outputs, batch_labels)
-        
+
         # Backward pass
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    
+
     # Validation Phase
     model.eval()
     with torch.no_grad():
         for batch_text, batch_labels, lengths in val_loader:
             outputs = model(batch_text, lengths)
             val_loss = criterion(outputs, batch_labels)
-            
+
     # Save best model
     if val_acc > best_val_acc:
         save_checkpoint('best_model.pt')
@@ -335,23 +348,25 @@ for epoch in range(num_epochs):
 
 **Epoch-by-Epoch Results:**
 
-| Epoch | Train Loss | Train Acc | Val Loss | Val Acc | Time |
-|-------|-----------|-----------|----------|---------|------|
-| 1     | 0.97      | 50.87%    | 0.95     | 51.20%  | 3:12 |
-| 2     | 0.88      | 57.63%    | 0.91     | 55.89%  | 3:08 |
-| 3     | 0.79      | 61.02%    | 0.88     | 58.34%  | 3:10 |
-| 5     | 0.72      | 68.42%    | 0.89     | 63.60%  | 3:15 |
-| 8     | 0.55      | 76.89%    | 0.93     | 66.18%  | 3:18 |
-| 10    | 0.48      | 79.45%    | 0.97     | 65.44%  | 3:20 |
-| **13**| **0.42**  | **83.08%**| **1.01** | **65.68%** | **3:22** |
+| Epoch  | Train Loss | Train Acc  | Val Loss | Val Acc    | Time     |
+| ------ | ---------- | ---------- | -------- | ---------- | -------- |
+| 1      | 0.97       | 50.87%     | 0.95     | 51.20%     | 3:12     |
+| 2      | 0.88       | 57.63%     | 0.91     | 55.89%     | 3:08     |
+| 3      | 0.79       | 61.02%     | 0.88     | 58.34%     | 3:10     |
+| 5      | 0.72       | 68.42%     | 0.89     | 63.60%     | 3:15     |
+| 8      | 0.55       | 76.89%     | 0.93     | 66.18%     | 3:18     |
+| 10     | 0.48       | 79.45%     | 0.97     | 65.44%     | 3:20     |
+| **13** | **0.42**   | **83.08%** | **1.01** | **65.68%** | **3:22** |
 
 **Key Observations:**
+
 - Training accuracy continuously improved: 50.87% → 83.08%
 - Validation accuracy peaked at epoch 8: 66.18%
 - Overfitting detected after epoch 8 (train 83%, val 66%)
 - Early stopping should have been applied at epoch 8
 
 **Training Time:**
+
 - Per epoch: ~3 minutes
 - Total: 13 epochs × 3 min = ~39 minutes
 - Hardware: CPU (no GPU available)
@@ -364,24 +379,25 @@ for epoch in range(num_epochs):
 
 #### Final Metrics (Epoch 13)
 
-| Metric | Training Set | Validation Set |
-|--------|--------------|----------------|
-| **Accuracy** | 83.08% | 65.68% |
-| **Loss** | 0.4184 | 1.0110 |
-| **Precision** | - | 66.48% |
-| **Recall** | - | 65.68% |
-| **F1-Score** | - | 65.91% |
+| Metric        | Training Set | Validation Set |
+| ------------- | ------------ | -------------- |
+| **Accuracy**  | 83.08%       | 65.68%         |
+| **Loss**      | 0.4184       | 1.0110         |
+| **Precision** | -            | 66.48%         |
+| **Recall**    | -            | 65.68%         |
+| **F1-Score**  | -            | 65.91%         |
 
 #### Per-Class Performance
 
-| Class | Precision | Recall | F1-Score | Support |
-|-------|-----------|--------|----------|---------|
-| **Negative** | 64.2% | 62.8% | 63.5% | ~2,080 |
-| **Neutral** | 67.1% | 68.5% | 67.8% | ~2,082 |
-| **Positive** | 68.1% | 65.7% | 66.9% | ~2,085 |
+| Class            | Precision  | Recall     | F1-Score   | Support   |
+| ---------------- | ---------- | ---------- | ---------- | --------- |
+| **Negative**     | 64.2%      | 62.8%      | 63.5%      | ~2,080    |
+| **Neutral**      | 67.1%      | 68.5%      | 67.8%      | ~2,082    |
+| **Positive**     | 68.1%      | 65.7%      | 66.9%      | ~2,085    |
 | **Weighted Avg** | **66.48%** | **65.68%** | **65.91%** | **6,247** |
 
 **Analysis:**
+
 - Most difficult class: Negative (63.5% F1)
 - Best performing class: Neutral (67.8% F1)
 - Balanced performance across all classes
@@ -397,6 +413,7 @@ Positive          285     429    1,371      (65.7% recall)
 ```
 
 **Common Misclassifications:**
+
 1. Negative → Neutral (458 cases) - Ambiguous language
 2. Positive → Neutral (429 cases) - Mild positive expressions
 3. Neutral → Positive (294 cases) - Positive words without strong sentiment
@@ -405,15 +422,15 @@ Positive          285     429    1,371      (65.7% recall)
 
 #### Architectures Implemented
 
-| Model | Parameters | Val Accuracy | Training Time | Status |
-|-------|-----------|--------------|---------------|--------|
-| **BiLSTM+Attention** | 7.54M | **65.68%** | ~40 min | ✅ Trained |
-| Basic LSTM | 5.17M | 66.18% | ~30 min | ✅ Trained |
-| GRU | 4.8M | - | - | ⏳ Not trained |
-| BiGRU+Attention | 7.2M | - | - | ⏳ Not trained |
-| CNN-LSTM | 6.1M | - | - | ⏳ Not trained |
-| Multi-Task LSTM | 8.3M | - | - | ⏳ Not trained |
-| Stacked GRU | 5.9M | - | - | ⏳ Not trained |
+| Model                | Parameters | Val Accuracy | Training Time | Status         |
+| -------------------- | ---------- | ------------ | ------------- | -------------- |
+| **BiLSTM+Attention** | 7.54M      | **65.68%**   | ~40 min       | ✅ Trained     |
+| Basic LSTM           | 5.17M      | 66.18%       | ~30 min       | ✅ Trained     |
+| GRU                  | 4.8M       | -            | -             | ⏳ Not trained |
+| BiGRU+Attention      | 7.2M       | -            | -             | ⏳ Not trained |
+| CNN-LSTM             | 6.1M       | -            | -             | ⏳ Not trained |
+| Multi-Task LSTM      | 8.3M       | -            | -             | ⏳ Not trained |
+| Stacked GRU          | 5.9M       | -            | -             | ⏳ Not trained |
 
 **Winner:** Basic LSTM (66.18%) by slight margin, but BiLSTM+Attention (65.68%) is more robust and generalizable.
 
@@ -421,20 +438,20 @@ Positive          285     429    1,371      (65.7% recall)
 
 **Correct Predictions:**
 
-| Input Text | True Label | Predicted | Confidence |
-|------------|-----------|-----------|------------|
-| "This is so bad" | Negative | Negative | 97.4% ✅ |
-| "Amazing product, highly recommend!" | Positive | Positive | 94.2% ✅ |
-| "It's okay, nothing special" | Neutral | Neutral | 78.6% ✅ |
-| "Terrible experience, very disappointed" | Negative | Negative | 91.8% ✅ |
+| Input Text                               | True Label | Predicted | Confidence |
+| ---------------------------------------- | ---------- | --------- | ---------- |
+| "This is so bad"                         | Negative   | Negative  | 97.4% ✅   |
+| "Amazing product, highly recommend!"     | Positive   | Positive  | 94.2% ✅   |
+| "It's okay, nothing special"             | Neutral    | Neutral   | 78.6% ✅   |
+| "Terrible experience, very disappointed" | Negative   | Negative  | 91.8% ✅   |
 
 **Incorrect Predictions:**
 
-| Input Text | True Label | Predicted | Confidence | Analysis |
-|------------|-----------|-----------|------------|----------|
-| "Not bad" | Neutral | Negative | 68.3% ❌ | Negation confusion |
-| "Could be better" | Negative | Neutral | 72.1% ❌ | Mild negative → neutral |
-| "Great... I guess" | Neutral | Positive | 65.4% ❌ | Sarcasm detection failed |
+| Input Text         | True Label | Predicted | Confidence | Analysis                 |
+| ------------------ | ---------- | --------- | ---------- | ------------------------ |
+| "Not bad"          | Neutral    | Negative  | 68.3% ❌   | Negation confusion       |
+| "Could be better"  | Negative   | Neutral   | 72.1% ❌   | Mild negative → neutral  |
+| "Great... I guess" | Neutral    | Positive  | 65.4% ❌   | Sarcasm detection failed |
 
 ### 4.5 Visualization
 
@@ -451,6 +468,7 @@ Val Acc:   51.20% → 65.68% (peaked at 66.18% epoch 8 ⚠️)
 ```
 
 **Saved Visualizations:**
+
 - `checkpoints/training_history.png` - Loss and accuracy curves
 - TensorBoard logs in `runs/` directory
 
@@ -461,20 +479,24 @@ Val Acc:   51.20% → 65.68% (peaked at 66.18% epoch 8 ⚠️)
 ### 5.1 Technology Stack
 
 **Core Framework:**
+
 - Python 3.13
 - PyTorch 2.9.1 (CPU version)
 
 **Data Processing:**
+
 - pandas 2.2.3 - Data manipulation
 - numpy 2.2.1 - Numerical computations
 - datasets 3.2.0 - HuggingFace dataset loading
 
 **Machine Learning:**
+
 - scikit-learn 1.6.1 - Metrics, train/test split
 - tqdm 4.67.1 - Progress bars
 - tensorboard 2.20.0 - Training visualization
 
 **Visualization:**
+
 - matplotlib 3.10.0 - Plotting
 - seaborn 0.13.2 - Statistical plots
 
@@ -565,6 +587,7 @@ python train.py \
 ### 5.4 Reproducibility
 
 **Environment Setup:**
+
 ```bash
 # Create virtual environment
 python3 -m venv venv
@@ -576,6 +599,7 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ```
 
 **Training Command:**
+
 ```bash
 ./venv/bin/python train.py \
     --data_path data/raw/huggingface_sentiment_train.csv \
@@ -597,26 +621,31 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ### 6.1 Overfitting Analysis
 
 **Problem Identified:**
+
 - Training Accuracy: 83.08%
 - Validation Accuracy: 65.68%
 - Gap: 17.4% (significant overfitting)
 
 **Root Causes:**
+
 1. **Model Complexity**: 7.5M parameters for 31K samples (~4 samples per parameter)
 2. **Training Duration**: 13 epochs (should have stopped at epoch 8)
 3. **Limited Regularization**: Dropout 0.5 was not enough
 
 **Evidence:**
+
 - Validation loss increased after epoch 8 (0.93 → 1.01)
 - Training loss continued decreasing (0.55 → 0.42)
 - Classic overfitting pattern
 
 **Solutions Applied:**
+
 - ✅ Dropout (0.5) added to all layers
 - ✅ Early stopping (manually at epoch 13)
 - ⏳ Data augmentation (implemented but not used)
 
 **Recommended Solutions:**
+
 1. Stop training at epoch 8 (best validation performance)
 2. Increase dropout to 0.6-0.7
 3. Apply data augmentation (EDA)
@@ -628,12 +657,14 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 **Why 65.68% Accuracy?**
 
 **Positive Factors:**
+
 - ✅ Real-world dataset (diverse, challenging)
 - ✅ Advanced architecture (BiLSTM + Attention)
 - ✅ Proper preprocessing pipeline
 - ✅ Balanced class distribution
 
 **Limiting Factors:**
+
 - ❌ Overfitting (train 83%, val 66%)
 - ❌ No pre-trained embeddings (random initialization)
 - ❌ Limited context window (max 50 words)
@@ -641,11 +672,13 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 - ❌ CPU training (slower, fewer hyperparameter experiments)
 
 **Comparison to Baseline:**
+
 - Random Guessing: 33.3% (3 classes)
 - Majority Class: 37.3% (always predict Neutral)
 - **Our Model: 65.68%** (significantly better!)
 
 **Comparison to State-of-the-Art:**
+
 - Basic models: 60-70% (our range)
 - Advanced models (BERT): 85-90%
 - Human performance: ~85-95%
@@ -653,16 +686,19 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ### 6.3 Strengths
 
 1. **Production-Ready System**
+
    - Interactive CLI tool works perfectly
    - Model saved and loadable
    - Complete documentation
 
 2. **Robust Architecture**
+
    - BiLSTM handles context well
    - Attention improves interpretability
    - Dropout prevents complete overfitting
 
 3. **Comprehensive Implementation**
+
    - 7 model architectures available
    - Proper train/val/test split
    - Multiple evaluation metrics
@@ -675,21 +711,25 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ### 6.4 Limitations
 
 1. **Overfitting**
+
    - Model memorizes training data
    - Poor generalization to new text
    - Solution: More data, regularization
 
 2. **Single Language**
+
    - Only English supported
    - No multilingual capability
    - Solution: Use multilingual models
 
 3. **Three Classes Only**
+
    - Cannot detect specific emotions (joy, anger, etc.)
    - No intensity scoring (1-5 stars)
    - Solution: Multi-task learning
 
 4. **No Context History**
+
    - Analyzes each text independently
    - Cannot track sentiment over time
    - Solution: Add conversation context
@@ -702,6 +742,7 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ### 6.5 Lessons Learned
 
 **Technical Lessons:**
+
 1. **Overfitting is real** - Always monitor validation metrics
 2. **Early stopping matters** - Best model ≠ final model
 3. **Preprocessing is crucial** - Clean data = better results
@@ -709,6 +750,7 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 5. **CPU training is slow** - GPU would speed up 10-50×
 
 **Project Management:**
+
 1. **Start simple** - Basic LSTM before complex architectures
 2. **Document everything** - README, comments, reports
 3. **Save checkpoints** - Never lose trained models
@@ -722,21 +764,25 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ### 7.1 Short-term Improvements (1-2 weeks)
 
 1. **Pre-trained Embeddings**
+
    - Download GloVe/Word2Vec 300D
    - Expected: +5-10% accuracy
    - Effort: Low
 
 2. **Data Augmentation**
+
    - Enable EDA (synonym replacement, random swap)
    - Expected: +3-5% accuracy
    - Effort: Low (already implemented)
 
 3. **Hyperparameter Tuning**
+
    - Grid search: learning rate, dropout, hidden_dim
    - Expected: +2-4% accuracy
    - Effort: Medium
 
 4. **Early Stopping**
+
    - Automatic stopping at best validation
    - Expected: Prevent overfitting
    - Effort: Low
@@ -749,22 +795,26 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ### 7.2 Medium-term Improvements (1-2 months)
 
 1. **Ensemble Methods**
+
    - Train multiple models, average predictions
    - Expected: +3-4% accuracy
    - Effort: Medium
 
 2. **More Training Data**
+
    - Combine multiple datasets (100K+ samples)
    - Expected: +8-12% accuracy
    - Effort: Medium
 
 3. **Advanced Architectures**
+
    - Transformer models
    - Self-attention mechanisms
    - Expected: +5-8% accuracy
    - Effort: High
 
 4. **Fine-tune BERT**
+
    - Use pre-trained transformers
    - Expected: 85-90% accuracy (guaranteed)
    - Effort: Medium (requires GPU)
@@ -777,18 +827,22 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 ### 7.3 Long-term Vision (3-6 months)
 
 1. **Multilingual Support**
+
    - Arabic, French, Spanish
    - Cross-lingual models
 
 2. **Emotion Detection**
+
    - Beyond sentiment (joy, anger, fear, etc.)
    - Multi-label classification
 
 3. **Context-Aware Analysis**
+
    - Conversation history
    - User profiling
 
 4. **Real-time Streaming**
+
    - Twitter/social media integration
    - Alert systems
 
@@ -805,6 +859,7 @@ pip install datasets scikit-learn tqdm tensorboard matplotlib seaborn pandas num
 This project successfully implemented a complete sentiment analysis system using deep learning, achieving **65.68% validation accuracy** on a real-world dataset of 31,232 English text samples. The BiLSTM with Attention architecture demonstrated strong performance, though overfitting was detected and addressed through dropout regularization and early stopping.
 
 **Key Achievements:**
+
 1. ✅ **Fully Functional System** - End-to-end pipeline from data to predictions
 2. ✅ **Real Dataset** - HuggingFace dataset with 36,438 samples
 3. ✅ **Advanced Architecture** - BiLSTM + Attention (7.5M parameters)
@@ -813,27 +868,30 @@ This project successfully implemented a complete sentiment analysis system using
 
 ### 8.2 Performance Summary
 
-| Metric | Value | Status |
-|--------|-------|--------|
-| Validation Accuracy | 65.68% | ✅ Exceeds random (33%) |
-| Validation F1-Score | 65.91% | ✅ Balanced performance |
-| Training Time | 39 minutes | ✅ Reasonable |
-| Model Size | 62 MB | ✅ Deployable |
-| Inference Speed | ~50ms/sample | ✅ Real-time capable |
+| Metric              | Value        | Status                  |
+| ------------------- | ------------ | ----------------------- |
+| Validation Accuracy | 65.68%       | ✅ Exceeds random (33%) |
+| Validation F1-Score | 65.91%       | ✅ Balanced performance |
+| Training Time       | 39 minutes   | ✅ Reasonable           |
+| Model Size          | 62 MB        | ✅ Deployable           |
+| Inference Speed     | ~50ms/sample | ✅ Real-time capable    |
 
 ### 8.3 Impact
 
 **Academic Value:**
+
 - Demonstrates mastery of deep learning concepts
 - Proper experimental methodology
 - Comprehensive documentation
 
 **Practical Value:**
+
 - Production-ready system
 - Can be deployed for real applications
 - Extensible codebase
 
 **Learning Value:**
+
 - Hands-on experience with PyTorch
 - Understanding of LSTM and attention
 - Experience with real-world datasets
@@ -843,6 +901,7 @@ This project successfully implemented a complete sentiment analysis system using
 This project demonstrates that with proper architecture design, data preprocessing, and training techniques, deep learning can effectively solve sentiment analysis tasks. While the 65.68% accuracy has room for improvement (via pre-trained embeddings, more data, or transformer models), the system is fully functional, well-documented, and production-ready.
 
 The most valuable lessons learned were:
+
 1. **Overfitting is the enemy** - More data and regularization are crucial
 2. **Architecture matters** - BiLSTM + Attention > Basic LSTM
 3. **Preprocessing is half the battle** - Clean data = better results
@@ -936,10 +995,10 @@ class BiLSTMAttention(nn.Module):
     def __init__(self, vocab_size, embedding_dim=300, hidden_dim=256,
                  num_layers=2, num_classes=3, dropout=0.5):
         super().__init__()
-        
+
         # Embedding layer
         self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)
-        
+
         # BiLSTM layer
         self.lstm = nn.LSTM(
             input_size=embedding_dim,
@@ -949,31 +1008,31 @@ class BiLSTMAttention(nn.Module):
             batch_first=True,
             bidirectional=True
         )
-        
+
         # Attention mechanism
         self.attention = nn.Linear(hidden_dim * 2, 1)
-        
+
         # Classification layer
         self.fc = nn.Linear(hidden_dim * 2, num_classes)
         self.dropout = nn.Dropout(dropout)
-    
+
     def forward(self, text, lengths):
         # Embed
         embedded = self.embedding(text)  # [batch, seq_len, embed_dim]
-        
+
         # Pack sequence
         packed = nn.utils.rnn.pack_padded_sequence(
             embedded, lengths, batch_first=True, enforce_sorted=False
         )
-        
+
         # BiLSTM
         lstm_out, _ = self.lstm(packed)
         lstm_out, _ = nn.utils.rnn.pad_packed_sequence(lstm_out, batch_first=True)
-        
+
         # Attention
         attn_weights = torch.softmax(self.attention(lstm_out).squeeze(-1), dim=1)
         context = torch.sum(lstm_out * attn_weights.unsqueeze(-1), dim=1)
-        
+
         # Classification
         output = self.fc(self.dropout(context))
         return output
@@ -982,6 +1041,7 @@ class BiLSTMAttention(nn.Module):
 ### Appendix C: Usage Examples
 
 **Training:**
+
 ```bash
 ./venv/bin/python train.py \
     --data_path data/raw/huggingface_sentiment_train.csv \
@@ -994,6 +1054,7 @@ class BiLSTMAttention(nn.Module):
 ```
 
 **Interactive Prediction:**
+
 ```bash
 ./venv/bin/python interactive_predict.py
 
@@ -1014,6 +1075,7 @@ class BiLSTMAttention(nn.Module):
 ```
 
 **Evaluation:**
+
 ```bash
 ./venv/bin/python evaluate.py \
     --model_path checkpoints/best_model.pt \
@@ -1033,6 +1095,7 @@ class BiLSTMAttention(nn.Module):
 - **GPU**: None (CPU-only training)
 
 **Training Performance:**
+
 - Samples/second: ~260 (training)
 - Samples/second: ~520 (inference)
 - Total training time: 39 minutes (13 epochs)
@@ -1061,4 +1124,4 @@ class BiLSTMAttention(nn.Module):
 
 ---
 
-*This report documents a complete, production-ready sentiment analysis system built from scratch using PyTorch and modern deep learning techniques. All code, models, and documentation are included in the project repository.*
+_This report documents a complete, production-ready sentiment analysis system built from scratch using PyTorch and modern deep learning techniques. All code, models, and documentation are included in the project repository._
